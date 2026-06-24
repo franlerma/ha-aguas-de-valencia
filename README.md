@@ -1,52 +1,57 @@
 # Aguas de Valencia — Home Assistant Integration
 
-Custom component para Home Assistant que expone el consumo de agua de la **Oficina Virtual de Aguas de Valencia** como entidades compatibles con el panel de Energía.
+Custom component for Home Assistant that exposes water consumption data from the **Aguas de Valencia Virtual Office** as entities compatible with the Energy dashboard.
 
-## Entidades creadas
+## Created entities
 
-| Entidad | Descripción | Para el panel de Energía |
+| Entity | Description | Energy dashboard |
 |---|---|---|
-| `sensor.aguas_de_valencia_lectura_del_contador` | Contador acumulado en m³ (`total_increasing`) | ✅ Usar esta |
-| `sensor.aguas_de_valencia_consumo_ultimo_periodo` | m³ consumidos en el último trimestre | ❌ Solo info |
+| `sensor.aguas_de_valencia_lectura_del_contador` | Accumulated meter reading in m³ (`total_increasing`) | ✅ Use this one |
+| `sensor.aguas_de_valencia_consumo_ultimo_periodo` | m³ consumed in the last billing period | ❌ Info only |
+| `sensor.aguas_de_valencia_importe_ultima_factura` | Amount of the last invoice (€) | ❌ Info only |
+| `sensor.aguas_de_valencia_periodo_ultima_factura` | Billing period of the last invoice | ❌ Info only |
+| `sensor.aguas_de_valencia_estado_ultima_factura` | Status of the last invoice (Paid / Pending) | ❌ Info only |
 
-> **Nota:** Los datos son trimestrales (facturación real). El panel de energía mostrará el histórico correctamente una vez que HA acumule varias actualizaciones.
+> **Note:** Data is billed every two months. The Energy dashboard will display historical data correctly once Home Assistant accumulates a few updates.
 
-## Instalación
+## Installation
 
-### Opción A — HACS (recomendado)
+### Option A — HACS (recommended)
 
-[![Añadir a HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=franlerma&repository=ha-aguas-de-valencia&category=integration)
+[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=franlerma&repository=ha-aguas-de-valencia&category=integration)
 
-O manualmente: HACS → Integraciones → ⋮ → Repositorios personalizados → añade `https://github.com/franlerma/ha-aguas-de-valencia`, categoría `Integration`.
+Or manually: HACS → Integrations → ⋮ → Custom repositories → add `https://github.com/franlerma/ha-aguas-de-valencia`, category `Integration`.
 
-### Opción B — Manual
+### Option B — Manual
+
 ```bash
-# Desde tu máquina, copia la carpeta al config de HA
-scp -r custom_components/aguas_de_valencia usuario@ha-host:/config/custom_components/
+scp -r custom_components/aguas_de_valencia user@ha-host:/config/custom_components/
 ```
-O con la terminal de HA:
+
+Or via the HA terminal:
+
 ```bash
 cd /config/custom_components
-# copia/pega o sube con el File Editor addon
+# copy/paste or upload with the File Editor add-on
 ```
 
-## Configuración
+## Configuration
 
-1. **Reinicia Home Assistant** tras copiar los ficheros
-2. Ve a **Ajustes → Dispositivos y Servicios → Añadir integración**
-3. Busca "Aguas de Valencia"
-4. Introduce tu correo y contraseña de la Oficina Virtual
+1. **Restart Home Assistant** after copying the files
+2. Go to **Settings → Devices & Services → Add integration**
+3. Search for "Aguas de Valencia"
+4. Enter your Virtual Office email and password
 
-La integración valida las credenciales en tiempo real durante el config flow.
+Credentials are validated against the real API during the config flow.
 
-## Panel de Energía
+## Energy dashboard
 
-1. **Configuración → Energía → Agua**
-2. Añade fuente: `sensor.aguas_de_valencia_lectura_del_contador`
-3. HA calculará el consumo por periodo automáticamente
+1. **Settings → Energy → Water**
+2. Add source: `sensor.aguas_de_valencia_lectura_del_contador`
+3. Home Assistant will calculate period consumption automatically
 
-## Notas técnicas
+## Technical notes
 
-- **Autenticación:** El login obtiene una cookie `GO00_SessionId` con caducidad de ~6 meses. La integración renueva la sesión automáticamente si expira.
-- **Frecuencia de polling:** 1 vez al día (los datos son trimestrales, no tiene sentido más frecuencia).
-- **Sin dependencias externas:** Solo usa `aiohttp`, que ya viene con HA.
+- **Authentication:** Login obtains a `GO00_SessionId` cookie with a ~6 month expiry. The integration re-authenticates automatically when it expires.
+- **Polling frequency:** Once per day — data is billed every two months, so more frequent polling is pointless.
+- **No external dependencies:** Uses only `aiohttp`, which is bundled with Home Assistant.
