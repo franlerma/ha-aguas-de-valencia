@@ -1,0 +1,41 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Aguas de Valencia",
+        "description": "Introduce las credenciales de tu Oficina Virtual de Aguas de Valencia.",
+        "data": {
+          "username": "Correo electrónico",
+          "password": "Contraseña"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Credenciales incorrectas. Verifica tu correo y contraseña.",
+      "cannot_connect": "No se pudo conectar con aguasdevalencia.es. Comprueba tu conexión.",
+      "unknown": "Error inesperado. Consulta los logs de Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Esta cuenta ya está configurada."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total_reading": {
+        "name": "Lectura del contador"
+      },
+      "last_consumption": {
+        "name": "Consumo último periodo"
+      },
+      "last_invoice_amount": {
+        "name": "Importe última factura"
+      },
+      "last_invoice_period": {
+        "name": "Periodo última factura"
+      },
+      "last_invoice_status": {
+        "name": "Estado última factura"
+      }
+    }
+  }
+}
