@@ -13,10 +13,11 @@ Custom component para Home Assistant que expone el consumo de agua de la **Ofici
 
 ## Instalación
 
-### Opción A — HACS (recomendado cuando publiques el repo)
-1. HACS → Integraciones → Menú → Repositorios personalizados
-2. Añade la URL del repo, categoría: `Integration`
-3. Instala "Aguas de Valencia"
+### Opción A — HACS (recomendado)
+
+[![Añadir a HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=franlerma&repository=ha-aguas-de-valencia&category=integration)
+
+O manualmente: HACS → Integraciones → ⋮ → Repositorios personalizados → añade `https://github.com/franlerma/ha-aguas-de-valencia`, categoría `Integration`.
 
 ### Opción B — Manual
 ```bash
