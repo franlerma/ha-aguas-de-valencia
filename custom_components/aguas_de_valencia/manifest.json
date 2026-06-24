@@ -1,0 +1,12 @@
+{
+  "domain": "aguas_de_valencia",
+  "name": "Aguas de Valencia",
+  "version": "1.0.0",
+  "documentation": "https://github.com/fralermo/aguas-de-valencia-ha",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@fralermo"],
+  "iot_class": "cloud_polling",
+  "config_flow": true,
+  "integration_type": "service"
+}
